@@ -10,16 +10,13 @@ class SignModule:
         self.config = config
 
     def has_signed_today(self, user_id: str) -> bool:
-        """检查用户今天是否已签到"""
         record = self.db.get_sign_record(user_id)
         if not record:
             return False
         today = time.strftime("%Y%m%d")
-        # record 结构: {"time": "...", "flower": date_str}
         return record.get("flower") == today
 
     def mark_signed_today(self, user_id: str):
-        """标记用户今天已签到，用日期作为flower值存储"""
         today = time.strftime("%Y%m%d")
         self.db.set_sign_record(user_id, today)
 
@@ -40,8 +37,12 @@ class SignModule:
         flower_value = self._random_flower_value()
         flower_text = self.config.get_flower_text(flower_value)
 
-        new_balance = self.db.add_balance(user_id, reward)
+        # 集齐套数加成
+        sets = self.db.get_sets_completed(user_id)
+        bonus_mult = 1.0 + sets * self.config.set_bonus_interest
+        reward = int(reward * bonus_mult)
 
+        new_balance = self.db.add_balance(user_id, reward)
         self.mark_signed_today(user_id)
 
         text = self.config.sign_text or "🎉 {user} 签到成功，获得 {reward} {currency}\n桃花值：{flower_value} {flower_text}\n当前余额：{balance}"
@@ -53,6 +54,5 @@ class SignModule:
             flower_text=flower_text,
             balance=new_balance
         )
-
-        logger.info(f"用户 {user_name}({user_id}) 签到成功，获得 {reward}\n桃花值 {flower_value}")
+        logger.info(f"用户 {user_name}({user_id}) 签到成功，获得 {reward}，集齐套数加成 {sets}套")
         return result

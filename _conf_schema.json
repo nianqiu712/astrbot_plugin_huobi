@@ -7,7 +7,7 @@
   "currency_name": {
     "description": "货币单位名称（如 金币、钻石）",
     "type": "string",
-    "default": "货币"
+    "default": "金币"
   },
   "sign_reward_min": {
     "description": "签到获得的最小货币数量",
@@ -20,7 +20,7 @@
     "default": 150
   },
   "sign_text": {
-    "description": "签到成功显示的文本，支持 {user} {reward} {currency} {flower_value} {flower_text} {balance} 占位符",
+    "description": "签到成功显示的文本",
     "type": "string",
     "default": "🎉 {user} 签到成功，获得 {reward} {currency}！桃花值：{flower_value} {flower_text}\n当前余额：{balance}"
   },
@@ -30,17 +30,17 @@
     "default": "[{\"min\":0,\"max\":20,\"text\":\"桃花败残，凌乱枝桠\"},{\"min\":21,\"max\":40,\"text\":\"桃花含苞，静待花开\"},{\"min\":41,\"max\":60,\"text\":\"桃花微绽，若见呢喃\"},{\"min\":61,\"max\":80,\"text\":\"桃花满盛，落英纷然\"},{\"min\":81,\"max\":100,\"text\":\"桃之夭夭，灼灼其华！\"}]"
   },
   "fate_good_prob": {
-    "description": "命运好结果的概率（0-1），剩余为坏结果",
+    "description": "命运好结果的概率（0-1）",
     "type": "float",
     "default": 0.55
   },
   "fate_good_texts": {
-    "description": "好结果随机文本列表，JSON数组，支持 {gain} {balance} {amount} {currency} 占位符",
+    "description": "好结果随机文本列表，JSON数组",
     "type": "string",
     "default": "[\"🎉 鸿运当头！你获得了 {gain} {currency}！\\n当前余额：{balance}\"]"
   },
   "fate_bad_texts": {
-    "description": "坏结果随机文本列表，JSON数组，支持 {loss} {balance} {amount} {currency} 占位符",
+    "description": "坏结果随机文本列表，JSON数组",
     "type": "string",
     "default": "[\"😭 时运不济！你损失了 {loss} {currency}！\\n当前余额：{balance}\"]"
   },
@@ -50,8 +50,58 @@
     "default": 120
   },
   "fate_easter_eggs": {
-    "description": "彩蛋金额列表，JSON数组，例如 [712721]",
+    "description": "彩蛋金额列表，JSON数组",
     "type": "string",
     "default": "[712721]"
+  },
+  "fate_loss_multiplier": {
+    "description": "命运失败惩罚倍率（0.0=扣100%）",
+    "type": "float",
+    "default": 0.0
+  },
+  "gacha_enabled": {
+    "description": "是否启用抽卡系统",
+    "type": "bool",
+    "default": true
+  },
+  "gacha_cost": {
+    "description": "单抽消耗的货币数量",
+    "type": "int",
+    "default": 200
+  },
+  "gacha_initial_currency": {
+    "description": "新用户初始货币",
+    "type": "int",
+    "default": 2000
+  },
+  "gacha_initial_tickets": {
+    "description": "新用户初始抽卡次数",
+    "type": "int",
+    "default": 20
+  },
+  "bank_enabled": {
+    "description": "是否启用银行系统",
+    "type": "bool",
+    "default": true
+  },
+  "bank_daily_interest_rate_3": {
+    "description": "存款≤5w部分日利率",
+    "type": "float",
+    "default": 0.10
+  },
+  "bank_daily_interest_rate_2": {
+    "description": "5w~10w部分日利率",
+    "type": "float",
+    "default": 0.05
+  },
+  "bank_daily_interest_rate_1": {
+    "description": ">10w部分日利率",
+    "type": "float",
+    "default": 0.02
+  },
+  "set_bonus_interest": {
+    "description": "每集齐一套二十四节气增加的货币收益百分比（小数，如0.05=5%）",
+    "type": "float",
+    "default": 0.05
   }
 }
