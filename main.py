@@ -28,9 +28,11 @@ class SignSystemPlugin(Star):
         logger.info("🚀 开始初始化签到系统 v2...")
 
         try:
+            # 数据存放在插件目录上级的 sign_system_data 中，git更新不会覆盖
             plugin_dir = Path(__file__).parent
-            self.data_dir = plugin_dir / "data"
+            self.data_dir = plugin_dir.parent / "sign_system_data"
             self.data_dir.mkdir(parents=True, exist_ok=True)
+            logger.info(f"✅ 数据目录: {self.data_dir}")
         except Exception as e:
             logger.error(f"❌ 创建数据目录失败: {e}")
             self.data_dir = Path(".") / "sign_system_data"
