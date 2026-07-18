@@ -1,0 +1,6 @@
+name: sign_system
+display_name: 签到系统
+desc: 签到+命运+管理员系统，包含货币功能
+version: v1.1.0
+author: YourName
+repo: https://github.com/YourName/sign_system
